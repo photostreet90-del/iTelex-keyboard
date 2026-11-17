@@ -1,0 +1,72 @@
+iTelex 1.2 - Bàn phím tiếng Việt giao diện iOS 18 (tích hợp Smart Transform)
+========================================================================
+
+iTELEX v2 - Bàn phím kiểu iOS 18 cho Android (gõ tiếng Việt Telex + Gõ tắt)
+===========================================================================
+
+CÁCH CÀI (dùng Android Studio)
+1. Giải nén file zip.
+2. Mở Android Studio > File > Open > chọn thư mục "iTelex_iOS18_v2" vừa giải nén.
+3. Chờ Android Studio tải xong (thanh tiến trình phía dưới hết chạy). Lần đầu có thể mất vài phút
+   và có thể hỏi cài thêm "Android SDK Platform 35" - bấm Install/Accept.
+4. Cắm điện thoại bằng cáp USB (đã bật "Gỡ lỗi USB" trong Tùy chọn nhà phát triển)
+   rồi bấm nút Run (tam giác xanh).
+   Muốn lấy file APK để gửi cho máy khác: Build > Build App Bundle(s) / APK(s) > Build APK(s).
+
+CÁC NÂNG CẤP TRONG BẢN CẬP NHẬT NÀY
+1. Bố cục chuẩn iOS 18:
+   - Hàng phím dưới cùng sắp xếp theo thứ tự: Quả địa cầu -> 123 -> Micro -> Phím cách -> Return.
+   - Bấm phím Quả địa cầu 1 lần: đổi Tiếng Việt / English.
+   - Bấm phím Quả địa cầu lần nữa (nhấp đúp): mở bảng Emoji (bấm ABC để quay lại).
+   - Nhấn giữ phím Quả địa cầu: mở hộp thoại đổi sang bàn phím hệ thống khác.
+2. Gõ nhanh, gõ tắt kiểu UniKey:
+   - Tự động mở rộng từ viết tắt khi bấm Space, Enter hoặc dấu câu (ví dụ: vn -> Việt Nam, dc -> được, ko -> không).
+   - Tự giữ định dạng chữ hoa (VN -> VIỆT NAM, Vn -> Việt Nam).
+   - Quản lý thêm/xóa từ gõ tắt trực tiếp trong "Cài đặt giao diện bàn phím".
+3. Bật/Tắt thanh gợi ý từ:
+   - Có công tắc bật/tắt thanh gợi ý từ thông minh trong phần Cài đặt (khi tắt, bàn phím gọn gàng hơn).
+4. Hoàn thiện VoiceActivity:
+   - Nút Micro đặt ngay cạnh phím cách; hỗ trợ nhận diện trực tiếp bằng SpeechRecognizer hoặc tự động chuyển sang hộp thoại giọng nói Google.
+
+
+CẬP NHẬT BẢN 1.2.1 (tinh chỉnh giai đoạn cuối)
+==============================================
+1. Gõ tiếng Việt mạnh hơn (kiểu Laban Key):
+   - Gõ w ở đầu từ hoặc ngay sau phụ âm ra ư: w -> ư, nhw -> như, nhwng -> nhưng.
+   - Sau ư gõ o là ra ươ, không cần gõ thêm w: dduwocj -> được, nguwoif -> người.
+   - Vẫn dùng được cách cũ: uow -> ươ, uwow -> ươ (w thừa không làm hỏng chữ).
+   - Gõ w muộn ở cuối cụm: nguoiw -> ngươi, tuoiw -> tươi.
+2. Quả địa cầu: bấm lần 1 đổi Tiếng Việt/English, bấm lần 2 (chưa gõ phím nào khác,
+   trong 2,5 giây) mở emoji; ngôn ngữ được trả về như cũ. Bấm ABC để quay lại.
+3. Micro: chuyển lên thanh trên cùng, nằm ngay trên phím P (hàng dưới chỉ còn
+   Quả địa cầu - 123 - Space - Return).
+4. Bật/tắt gợi ý từ: nút "Aa" nằm trên phím Q (bấm để bật/tắt ngay trên bàn phím).
+   Vẫn có công tắc trong Cài đặt giao diện bàn phím. Thanh trên cùng luôn hiện để chứa
+   nút micro và nút Aa; khi tắt gợi ý thì chỉ còn hai nút này.
+5. Khoảng cách đáy: phím dưới cùng cách đáy màn hình tối thiểu 0,5 cm (5 mm);
+   nếu thanh điều hướng của máy cao hơn mức này thì dùng mức cao hơn. Vùng đệm này
+   không nhận chạm nên không bấm nhầm phím. Độ nâng trong Cài đặt cộng thêm vào.
+6. Sửa lỗi cú pháp ở phím dấu nháy kép trong bảng ký tự nhấn giữ (KeyboardView.kt).
+
+CẬP NHẬT BẢN 1.2.2
+==================
+1. Thêm thanh "Độ rộng phím" (mức 0-10) trong Cài đặt: tăng mức để phím rộng hơn nhờ thu
+   hẹp lề hai bên và khe ngang giữa các phím. Mức 0 là giao diện cũ. "Đặt lại mặc định"
+   đưa về mức 0.
+2. Hàng dưới cùng đổi thành: 123 -> Quả địa cầu -> Space -> Return.
+3. Sửa hai lỗi "Unsupported escape sequence" ở KeyboardView.kt và Suggester.kt.
+
+CẬP NHẬT BẢN 1.2.3 - MICRO
+==========================
+- Thêm quyền RECORD_AUDIO vào AndroidManifest.xml (trước đó thiếu nên micro không bao giờ dùng được
+  nhận diện trực tiếp) và khai báo RecognitionService trong <queries>.
+- Lần đầu bấm micro sẽ hiện hộp xin quyền micro; cho phép là nhận diện trực tiếp. Từ chối thì dùng
+  hộp thoại giọng nói của Google. Máy không có dịch vụ nhận diện (máy ảo thường không có) sẽ báo rõ.
+- Lỗi nhận diện (không nghe thấy, thiếu mạng...) giờ có thông báo thay vì im lặng.
+
+CẬP NHẬT BẢN 1.2.4 - GIAO DIỆN MICRO
+====================================
+- Bấm micro: hiện biểu tượng micro phóng to màu đỏ, vòng sóng nhấp nháy theo âm lượng giọng nói,
+  chữ nhận diện được hiện ngay phía dưới khi đang nói.
+- Nói xong bấm vào micro để dừng (micro chuyển xám, "Đang xử lý…"), chữ sẽ được chèn vào ô nhập.
+  Bàn phím cũng tự dừng khi bạn im lặng. Bấm ra vùng tối bên ngoài hoặc phím Back để hủy.
